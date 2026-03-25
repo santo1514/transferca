@@ -1,0 +1,11 @@
+services:
+  ms-transferca:
+    build: .  # <--- Esto le dice que busque el Dockerfile en la carpeta actual
+    image: transferca:latest
+    ports:
+      - "8085:8085"
+    volumes:
+      - .:/app
+    environment:
+      - ENV=dev
+    restart: always

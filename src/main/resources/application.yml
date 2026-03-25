@@ -1,0 +1,27 @@
+spring:
+    application:
+        name: transferca
+    datasource:
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: sa
+        url: "jdbc:h2:mem:transferca;DB_CLOSE_ON_EXIT=FALSE"
+    h2:
+        console:
+            enabled: true
+            settings:
+                web-allow-others: true
+    jpa: # Esta es la sección principal para la configuración de JPA (Java Persistence API) en Spring Boot.
+        show-sql: true # Esta propiedad, cuando se establece en 'true', hace que Hibernate (el proveedor JPA por defecto en Spring Boot) imprima en la consola todas las sentencias SQL que ejecuta. Es muy útil para depuración y para entender cómo se interactúa con la base de datos.
+        database-platform: org.hibernate.dialect.H2Dialect # Define el dialecto de la base de datos que Hibernate debe usar. Un dialecto es una clase que Hibernate utiliza para generar SQL específico para una base de datos particular. En este caso, `org.hibernate.dialect.H2Dialect` indica que estás usando la base de datos H2.
+        defer-datasource-initialization: true # Esta propiedad, cuando es 'true', retrasa la inicialización de la fuente de datos hasta que se haya inicializado el contexto de la aplicación. Esto es útil en ciertos escenarios, como cuando se necesita que los scripts de inicialización de la base de datos (como `schema.sql` o `data.sql`) se ejecuten después de que se haya configurado el DataSource.
+        hibernate: # Esta subsección contiene configuraciones específicas para Hibernate.
+            ddl-auto: create-drop # Esta es una propiedad crucial de Hibernate que controla el comportamiento de la definición del esquema de la base de datos (DDL - Data Definition Language).
+                                  # - `create-drop`: Al iniciar la aplicación, Hibernate creará el esquema de la base de datos (tablas, etc.) basándose en tus entidades JPA. Al cerrar la aplicación, el esquema se eliminará. Es ideal para desarrollo y pruebas, ya que garantiza un estado limpio de la base de datos en cada inicio.
+                                  # Otros valores comunes incluyen:
+                                  # - `none`: No se realiza ninguna acción DDL.
+                                  # - `update`: Actualiza el esquema existente para que coincida con tus entidades.
+                                  # - `create`: Crea el esquema al iniciar, pero no lo elimina al cerrar.
+                                  # - `create`: Crea el esquema al iniciar, pero no lo elimina al cerrar.
+server:
+    port: 8085
